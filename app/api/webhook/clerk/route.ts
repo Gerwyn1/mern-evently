@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { WebhookEvent, clerkClient } from "@clerk/nextjs/server";
 import { createUser, deleteUser, updateUser } from "@/lib/actions/user.actions";
 import { NextResponse } from "next/server";
+import { UpdateUserParams } from "@/types";
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the webhook
@@ -84,13 +85,13 @@ export async function POST(req: Request) {
     const { id, image_url, first_name, last_name, username } = evt.data;
 
     const user = {
-      firstName: first_name as string,
-      lastName: last_name as string,
-      username: username as string,
-      photo: image_url as string,
+      firstName: first_name,
+      lastName: last_name,
+      username: username,
+      photo: image_url,
     };
 
-    const updatedUser = await updateUser(id, user);
+    const updatedUser = await updateUser(id, user as UpdateUserParams);
 
     return NextResponse.json({ message: "OK", user: updatedUser });
   }

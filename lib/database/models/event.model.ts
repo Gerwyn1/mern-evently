@@ -1,9 +1,9 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Document } from "mongoose";
 
 export interface IEvent extends Document {
   _id: string;
   title: string;
-  description?: string;
+  description?: string | undefined;
   location?: string;
   createdAt: Date;
   imageUrl: string;
